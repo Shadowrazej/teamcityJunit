@@ -40,7 +40,7 @@ public class CalculatorTest {
 
     @Test
     public void divide() throws Exception {
-        assertEquals(6, calculator.divide(5, 2), 0);
+        assertEquals(2.5, calculator.divide(5, 2), 0);
     }
 
     //Деление на 0 возвращает -1(надо подправить)
