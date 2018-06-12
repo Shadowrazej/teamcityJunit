@@ -10,7 +10,11 @@ public class Calculator {
         double num1 = input.nextDouble();
         String operation = input.next();
         double num2 = input.nextDouble();
-        System.out.println(calculator.calculate(num1, num2, operation));
+        try {
+            System.out.println(calculator.calculate(num1, num2, operation));
+        } catch (ArithmeticException e) {
+            System.out.println("Divide by 0");
+        }
     }
 
     public double add(double num1, double num2) {
@@ -26,7 +30,10 @@ public class Calculator {
     }
 
     public double divide(double num1, double num2) {
-        return num2 == 0 ? -1 : num1 / num2;
+        if (num2 == 0) {
+            throw new ArithmeticException();
+        }
+        return num1 / num2;
     }
 
     public double calculate(double num1, double num2, String operation) {

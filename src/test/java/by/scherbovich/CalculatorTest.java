@@ -6,6 +6,8 @@ import static org.junit.Assert.*;
 
 public class CalculatorTest {
 
+    ArithmeticException e = new ArithmeticException();
+
     private Calculator calculator = new Calculator();
 
     @Test
@@ -29,25 +31,93 @@ public class CalculatorTest {
     }
 
     @Test
-    public void subtract() throws Exception {
+    public void addMaxValue() throws Exception {
+        assertEquals(Double.POSITIVE_INFINITY, calculator.add(Double.MAX_VALUE, Double.MAX_VALUE), 0);
+    }
+
+    @Test
+    public void subtractPosPos() throws Exception {
         assertEquals(45, calculator.subtract(100, 55), 0);
     }
 
     @Test
-    public void multiply() throws Exception {
+    public void subtractPosNeg() throws Exception {
+        assertEquals(155, calculator.subtract(100, -55), 0);
+    }
+
+    @Test
+    public void subtractNegPos() throws Exception {
+        assertEquals(-155, calculator.subtract(-100, 55), 0);
+    }
+
+    @Test
+    public void subtractNegNeg() throws Exception {
+        assertEquals(-45, calculator.subtract(-100, -55), 0);
+    }
+
+    @Test
+    public void subtractMaxValue() throws Exception {
+        assertEquals(Double.NEGATIVE_INFINITY, calculator.subtract(-Double.MAX_VALUE, Double.MAX_VALUE), 0);
+    }
+
+    @Test
+    public void multiplyPosPos() throws Exception {
         assertEquals(125, calculator.multiply(25, 5), 0);
     }
 
     @Test
-    public void divide() throws Exception {
+    public void multiplyPosNeg() throws Exception {
+        assertEquals(-125, calculator.multiply(25, -5), 0);
+    }
+
+    @Test
+    public void multiplyNegPos() throws Exception {
+        assertEquals(-125, calculator.multiply(-25, 5), 0);
+    }
+
+    @Test
+    public void multiplyNegNeg() throws Exception {
+        assertEquals(125, calculator.multiply(-25, -5), 0);
+    }
+
+    @Test
+    public void multiplyMaxValue() throws Exception {
+        assertEquals(Double.POSITIVE_INFINITY, calculator.multiply(Double.MAX_VALUE, 2), 0);
+    }
+
+    @Test
+    public void dividePosPos() throws Exception {
         assertEquals(2.5, calculator.divide(5, 2), 0);
     }
 
-    //Деление на 0 возвращает -1(надо подправить)
+    @Test
+    public void dividePosNeg() throws Exception {
+        assertEquals(-2.5, calculator.divide(5, -2), 0);
+    }
 
     @Test
-    public void calculate() throws Exception {
-        assertEquals(-1, calculator.calculate(20, 0, "/"), 0);
+    public void divideNegPos() throws Exception {
+        assertEquals(-2.5, calculator.divide(-5, 2), 0);
+    }
+
+    @Test
+    public void divideNegNeg() throws Exception {
+        assertEquals(2.5, calculator.divide(-5, -2), 0);
+    }
+
+    @Test
+    public void divideMinValue() throws Exception {
+        assertEquals(Double.POSITIVE_INFINITY, calculator.divide(1, Double.MIN_VALUE), 0);
+    }
+
+    @Test
+    public void calculateTest() throws Exception {
+        assertEquals(10, calculator.calculate(20, 2, "/"), 0);
+    }
+
+    @Test(expected = ArithmeticException.class)
+    public void divideByZero() throws Exception {
+        calculator.divide(50, 0);
     }
 
 }
